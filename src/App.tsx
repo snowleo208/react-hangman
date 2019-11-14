@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Container from './components';
+import HangmanInterface from './components';
 
 const App: React.FC = () => {
   return (
-    <Container />
+    <HangmanInterface />
   );
 }
 
