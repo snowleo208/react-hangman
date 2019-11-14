@@ -21,9 +21,9 @@ const Hangman: React.FC = () => {
         }
 
         let masked = word;
+
         // masked alphabet that haven't guessed
-        const guessedStatus = masked.split('').
-            map((letter: string) => arr.indexOf(letter) < 0 ? '_' : letter);
+        const guessedStatus = masked.split('').map((letter: string) => arr.indexOf(letter) < 0 ? '_' : letter);
 
         // console.log('result: ' + masked, guessedStatus);
         setGuessStatus(guessedStatus.join(''));
@@ -65,7 +65,7 @@ const Hangman: React.FC = () => {
 
     const checkEndGame = () => {
         // end the game if meets certain condition
-        if (count >= 8 || guessStatus.indexOf('_') < 0) {
+        if (count >= 7 || guessStatus.indexOf('_') < 0) {
             setIsEndGame(true);
         }
     }
@@ -87,7 +87,7 @@ const Hangman: React.FC = () => {
 
         // set new masked word
         const maskedWord = newWord.split('').map(() => '_').join('');
-        console.log(newWord, maskedWord)
+        // console.log(newWord, maskedWord)
 
         setWord(newWord.toLowerCase());
         setGuessStatus(maskedWord);
@@ -117,6 +117,7 @@ const Hangman: React.FC = () => {
         <>
             <h1>Hangman</h1>
             <HangmanGUI
+                word={word}
                 guessStatus={guessStatus}
                 usedWords={usedWords}
                 count={count}

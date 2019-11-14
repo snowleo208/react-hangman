@@ -1,7 +1,10 @@
 .c-hangman {
     &__guess {
         display: flex;
+        margin: 0 0 1em 0;
         p {
+            font-size: 1.5rem;
+            font-weight: 600;
             margin: 0 0.25em 0 0;
 
             &:last-of-type {
@@ -11,17 +14,62 @@
         }
     }
 
+    &__win {
+        font-weight: bold;
+    }
+
     &__lose {
         display: flex;
-        justify-content: top;
+        flex-flow: row wrap;
+        align-items: center;
+        margin: 0 0 2em 0;
 
         &--text {
             font-weight: bold;
-            margin: 0 0.5em 0 0;
+            margin: 0 0.5em 0.5em 0;
+
+            @media only screen and (min-width: 432px) {
+                margin: 0 0.5em 0 0;
+            }
+
+            span {
+                text-decoration: underline;
+            }
+        }
+
+        &--btn {
+            display: inline-block;
+            appearance: none;
+            -webkit-appearance: none;
+            background: white;
+            color: #191919;
+            border: solid 1px #ccc;
+            border-radius: 0.25em;
+            padding: 0.5em 1em;
+            margin: 0;
+            text-align: center;
+            cursor: pointer;
+            transition: ease 200ms;
+
+            &:hover {
+                background: rgba(19,19,19,0.2);
+                color: white;
+            }
         }
     }
 
     &__title {
         font-weight: bold;
     }
+}
+
+.c-footer {
+    color: #ccc;
+    font-size: 0.9rem;
+    padding: 1em;
+    text-align: center;
+
+     a, a:visited {
+         color: rgba(0,0,0,0.8);
+     }
 }

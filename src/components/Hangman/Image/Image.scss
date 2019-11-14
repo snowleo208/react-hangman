@@ -1,0 +1,16 @@
+.c-hangman {
+    &__image {
+        width: 50%;
+        max-width: 600px;
+        margin: 0 auto 2em auto;
+
+        svg {
+            width: 100%;
+            height: auto;
+        }
+
+        .u-hide {
+            display: none !important;
+        }
+    }
+}

@@ -6,17 +6,18 @@ interface IAlphabetList {
     alphaList: string[];
     usedWords: string[];
     guess: Function;
+    isEndGame: boolean;
 }
 
-const AlphabetList: React.FC<IAlphabetList> = ({ alphaList, usedWords, guess }) => {
+const AlphabetList: React.FC<IAlphabetList> = ({ alphaList, usedWords, guess, isEndGame }) => {
     return (
         <div className="c-alphabet">
             {alphaList.map(letter =>
                 <button
-                    className={usedWords.indexOf(letter) >= 0 ? "c-alphabet__item disable" : "c-alphabet__item"}
+                    className="c-alphabet__item"
                     key={letter}
                     onClick={() => guess(letter)}
-                    disabled={usedWords.indexOf(letter) >= 0}
+                    disabled={usedWords.indexOf(letter) >= 0 || isEndGame}
                 >
                     {letter}
                 </button>)

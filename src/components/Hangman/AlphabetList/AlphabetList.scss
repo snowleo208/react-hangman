@@ -1,8 +1,13 @@
 .c-alphabet {
     display: flex;
     flex-flow: row wrap;
-    width: 80%;
-    margin: 0 auto;
+    width: 90%;
+    margin: 0 auto 2em auto;
+
+    @media only screen and (min-width: 532px) {
+        width: 80%;
+        margin: 0 auto 2em auto;
+    }
 
     &__item {
         width: calc(100% / 10 - 0.25em);
@@ -12,20 +17,25 @@
         color: #191919;
         border: solid 1px #ccc;
         border-radius: 0.25em;
-        padding: 0.5em 1em;
+        padding: 0.5em 0;
         margin: 0 0.25em 0.25em 0;
         text-align: center;
         cursor: pointer;
         transition: ease 200ms;
+
+        @media only screen and (min-width: 532px) {
+            padding: 0.5em 1em;
+        }
 
         &:hover {
             background: rgba(19,19,19,0.2);
             color: white;
         }
 
-        &.disable {
+        &:disabled {
             background: rgba(19,19,19,0.2);
             color: white;
+            pointer-events: none;
         }
     }
 }
