@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react'
+import './AlphabetList.scss';
 
 interface IAlphabetList {
     children?: ReactNode;

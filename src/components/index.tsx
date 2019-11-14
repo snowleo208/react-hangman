@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import AlphabetList from './Hangman/AlphabetList'
+import HangmanGUI from './Hangman/HangmanGUI';
+import wordlist from './wordlist';
 
-const HangmanInterface: React.FC = () => {
+const Hangman: React.FC = () => {
     const [count, setCount] = useState(0);
     const [word, setWord] = useState('winter');
     const [guessStatus, setGuessStatus] = useState('______');
@@ -24,7 +25,7 @@ const HangmanInterface: React.FC = () => {
         const guessedStatus = masked.split('').
             map((letter: string) => arr.indexOf(letter) < 0 ? '_' : letter);
 
-        console.log('result: ' + masked, guessedStatus);
+        // console.log('result: ' + masked, guessedStatus);
         setGuessStatus(guessedStatus.join(''));
     };
 
@@ -69,25 +70,63 @@ const HangmanInterface: React.FC = () => {
         }
     }
 
+    const initWord = () => {
+        // get word from word list using random index number
+        let randomIndex: number = Math.floor(Math.random() * wordlist.length);
+        let newWord = '';
+
+        try {
+            // try to get random word from word list
+            newWord = wordlist[randomIndex];
+        } catch (e) {
+            // if failed, set a new one
+            console.log(e);
+            randomIndex = Math.floor(Math.random() * wordlist.length);
+            newWord = wordlist[randomIndex];
+        }
+
+        // set new masked word
+        const maskedWord = newWord.split('').map(() => '_').join('');
+        console.log(newWord, maskedWord)
+
+        setWord(newWord.toLowerCase());
+        setGuessStatus(maskedWord);
+    }
+
+    const initGame = () => {
+        console.log('init game');
+        setCount(0)
+        setUsedWords([]);
+        initWord();
+        setIsEndGame(false);
+    }
+
     useEffect(() => {
+        // check game status when guessStatus and count updated
         checkEndGame();
         return () => { };
     }, [guessStatus, count])
 
+    useEffect(() => {
+        // init game when component mounted for the first time
+        initGame();
+        return () => { };
+    }, [])
+
     return (
         <>
             <h1>Hangman</h1>
-            <p>{guessStatus}</p>
-            {isEndGame && guessStatus.indexOf('_') < 0 ? <p>You Win!!</p> : ''}
-            {isEndGame && guessStatus.indexOf('_') >= 0 && count >= 8 ? <p>You Lose!</p> : ''}
-            <p>Count: {count}</p>
-            <AlphabetList alphaList={alphabet} guess={guess} usedWords={usedWords} />
-            {usedWords.length > 0 ? <p>Used words: {usedWords.map(item => item)}</p> : ''}
-            {/* <footer>
-                <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-            </footer> */}
+            <HangmanGUI
+                guessStatus={guessStatus}
+                usedWords={usedWords}
+                count={count}
+                guess={guess}
+                alphabet={alphabet}
+                isEndGame={isEndGame}
+                initGame={initGame}
+            />
         </>
     );
 }
 
-export default HangmanInterface;
+export default Hangman;
