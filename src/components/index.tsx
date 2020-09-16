@@ -63,13 +63,6 @@ const Hangman: React.FC = () => {
         }
     }
 
-    const checkEndGame = () => {
-        // end the game if meets certain condition
-        if (count >= 7 || guessStatus.indexOf('_') < 0) {
-            setIsEndGame(true);
-        }
-    }
-
     const initWord = () => {
         // get word from word list using random index number
         let randomIndex: number = Math.floor(Math.random() * wordlist.length);
@@ -87,31 +80,30 @@ const Hangman: React.FC = () => {
 
         // set new masked word
         const maskedWord = newWord.split('').map(() => '_').join('');
-        // console.log(newWord, maskedWord)
 
         setWord(newWord.toLowerCase());
         setGuessStatus(maskedWord);
     }
 
     const initGame = () => {
-        console.log('init game');
         setCount(0)
         setUsedWords([]);
         initWord();
         setIsEndGame(false);
     }
 
-    useEffect(() => {
-        // check game status when guessStatus and count updated
-        checkEndGame();
-        return () => { };
-    }, [guessStatus, count])
+    const checkEndGame = () => {
+        // end the game if meets certain condition
+        if (count >= 7 || guessStatus.indexOf('_') < 0) {
+            setIsEndGame(true);
+        }
+    }
 
-    useEffect(() => {
-        // init game when component mounted for the first time
-        initGame();
-        return () => { };
-    }, [])
+    // check game status when guessStatus and count updated
+    useEffect(checkEndGame, [guessStatus, count])
+
+    // init game when component mounted for the first time
+    useEffect(initGame, [])
 
     return (
         <>
