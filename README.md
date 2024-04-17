@@ -4,7 +4,7 @@ A Hangman game built by React/React Hook with Typescript.
 
 ## Run locally
 
-Use `npm install` to install all packages, then run `npm start`, the browser will open `http://localhost:3000` for you automatically.
+Use `pnpm install` to install all packages, then run `pnpm start`, the browser will open `http://localhost:3000` for you automatically.
 
 ## Demo
 
